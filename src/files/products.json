@@ -1,0 +1,24 @@
+[
+    {
+        
+        "title": "ICONO Gel de Limpieza Kepp Matt 150ML",
+        "description": "Exfolia y elimina impurezas. Limpia y desinfecta la piel en un solo paso. Formulado para controlar la flora bacteriana y eliminar el sebo de la piel. Ideal para el tratamiento de piel seborreica o con acné",
+        "code":"01.0",
+        "typeSkin": "Mixta, Seborreica(acne)",
+        "price": 7.200,
+        "status":"true",
+        "stock": 7,
+        "category": "SkinCare"
+    },
+    {
+        
+        "title": "ICONO Máscara Timeless Lashes 12GR",
+        "description": "Máscara a prueba de agua con fibras y efecto voluminizador.",
+        "code":"02.0",
+        "typeSkin": "Todo tipo de piel",
+        "price": 6.800,
+        "status":"true",
+        "stock": 5,
+        "category": "MakeUp"
+    }
+]
