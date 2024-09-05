@@ -11,9 +11,11 @@ export default class productsManager {
             console.log("products file found")
         }
     }
+    // se inicia el archivo con un array vacio
     async init() {
         await fs.promises.writeFile(PATH, JSON.stringify([]))
     }
+    // llamamos/obtenenmos los productos
     async getProducts() {
         const data = await fs.promises.readFile(PATH, 'utf-8')
         const products = JSON.parse(data);
@@ -33,45 +35,55 @@ export default class productsManager {
         try {
             // me fijo si hay productos
             const products = await this.getProducts();
-            const product = newProduct
+            const product = { ...newProduct };
 
             if (products.length === 0) {
                 product.id = 1;
             } else {
-                product.id = products[product.length - 1].id + 1;
+                product.id = products[products.length - 1].id + 1;
             }
-            product.addProduct(product);
+            product.push(product);
             await fs.promises.writeFile(PATH, JSON.stringify(products, null, '\t'));
         } catch (error) {
             console.log(error);
         }
     };
-    async updateProduct (id) {
-        const productList = this.getProducts();
-        let foundIndex = productList.findIndex(
-            (element => element.id === Number(id, 2))
+    async updateProduct(id, updatedData) {
+        const products = this.getProducts();
+        let foundIndex = products.findIndex(
+            (p => p.id === Number(id))
         );
-        if(foundIndex === -1){
-            return res.status(400).send({status:"error",error:"User doesn't exist"})
+        if (foundIndex === -1) {
+            return res.status(400).send({ status: "error", error: "User doesn't exist" })
         }
-        product[foundIndex] = {...productList[foundIndex], stock};
+        products[foundIndex] = { ...products[foundIndex], ...updatedData };
         await fs.promises.readFile(PATH, 'utf-8');
 
-        fs.promises.writeFile(PATH,JSON.stringify('\t'));
-        return JSON.parse(product);
-    
+        fs.promises.writeFile(PATH, JSON.stringify(products, null, '\t'));
+        return products[foundIndex];
+
+    } catch(error) {
+        console.error(error);
+        return { error: "error to update product" };
+
     };
 
     async deleteProduct(id) {
-        const productList = this.getProducts();
-        let foundIndex = productList.findIndex(
-            (element => element.id === Number(id))
-        );
+        const products = this.getProducts();
+        let foundIndex = products.findIndex(p => p.id === Number(id));
+
         if (!foundIndex) {
             return {
-                error: true, message: "error, cannot find id",
+                error: true, message: "error, cannot find id"
             };
         }
-        productList.delete(foundIndex, 1);
-    }
+        products.splice(foundIndex, 1);
+        await fs.promises.writeFile(PATH, JSON.stringify(products, null, '\t'));
+        return { success: true };
+
+    } catch(error) {
+        console.error(error);
+        return { error: "error to delete product" };
+
+    };
 };

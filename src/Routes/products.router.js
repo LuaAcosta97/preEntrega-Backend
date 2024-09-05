@@ -1,15 +1,15 @@
 import express from 'express';
-import productsManager from "./managers/productsManager.js";
+import ProductsManager from "./managers/productsManager.js";
 
 const productsRouter = express.Router();
-const ProductsManager = new productsManager();
+const productsManager = new ProductsManager();
 
 productsRouter.use(express.json());
 productsRouter.use(express.urlencoded({ extended: true }));
 
 productsRouter.get('/', async (req, res) => {
     try {
-        const products = await ProductsManager.getProducts();
+        const products = await productsManager.getProducts();
         res.send({ products })
     } catch (error) {
         console.log(error);
@@ -22,9 +22,9 @@ productsRouter.get('/:pid', async (req, res) => {
     try {
         const { pid } = req.params;
         const parsedId = parseInt(pid, 1);
-        const product = await ProductsManager.getProductById(parsedId);
+        const product = await productsManager.getProductById(parsedId);
         if (!product) {
-            return res.status(404).send("cannot get product");
+            return res.status(404).send("product not found");
         }
         return res.send({ product })
 
@@ -44,19 +44,19 @@ productsRouter.post('/', async (req, res) => {
     }
     try {
         const newProduct = {
-        title: "Crema humectante Kepp Matt 150ML",
-        description: " protege y humecta la piel, efecto mate",
-        code:"03.0",
-        typeSkin: "Mixta",
-        price: 6.400,
-        status:"true",
-        stock: 3,
-        category:"SkinCare"
-        
-        };
-        await ProductsManager.addProduct(newProduct);
+            title: "Crema humectante Kepp Matt 150ML",
+            description: " protege y humecta la piel, efecto mate",
+            code: "03.0",
+            typeSkin: "Mixta",
+            price: 6.400,
+            status: "true",
+            stock: 3,
+            category: "SkinCare"
 
-        res.status(201).send({ status: "success", message: "user created" });
+        };
+        await productsManager.addProduct(newProduct);
+
+        res.status(201).send({ status: "success", message: " created" });
         // res.sendStatus(201); //estatus facil - created
     } catch (error) {
         console.log(error);
@@ -74,9 +74,9 @@ productsRouter.put('/:pid', async (req, res) => {
         const parsedId = parseInt(pid, 10);
         const updatedProduct = await productsManager.updateProduct(parsedId, { stock });
         if (!updatedProduct) {
-            return res.status(400).send({ status: "error", error: "user doesn't exist" })
+            return res.status(400).send({ status: "error", error: "product doesn't exist" })
         }
-        res.send({ status: "success", message: "user updated" });
+        res.send({ status: "success", message: "updated" });
     } catch (error) {
         console.error(error);
         res.status(500).send("Cannot update product");
@@ -86,10 +86,11 @@ productsRouter.put('/:pid', async (req, res) => {
 productsRouter.delete('/:uid', async (req, res) => {
     const { pid } = req.params;
     try {
+        //verifica la existencia del objeto
         const parsedId = parseInt(pid, 10);
         const deleted = await productsManager.deleteProduct(parsedId);
         if (!deleted) {
-            return res.status(400).send({ status: "error", error: "user doesn't exist" })
+            return res.status(400).send({ status: "error", error: "product doesn't exist" })
         }
         // si existia lo borra
         res.sendStatus(204);
