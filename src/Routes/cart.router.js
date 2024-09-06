@@ -1,8 +1,8 @@
 import express from 'express';
-import CartManager from '../managers/cartManager';
+import cartManager from '../managers/cartManager.js';
 
 const cartRouter = express.Router();
-const cartManager = new CartManager();
+const cartManagerInstance = new cartManager();
 
 // middlewares
 cartRouter.use(express.json());
@@ -13,7 +13,7 @@ cartRouter.post('/', async (req, res) => {
     const { } = req.body;
     // creamos el carrito con el arreglo de productos vacio
     try {
-        await cartManager.createCart();
+        await cartManagerInstance.createCart();
         res.status(201).send({ status: "success", message: "cart created" });
         // res.sendStatus(201); //estatus facil - created
     } catch (error) {
@@ -26,7 +26,7 @@ cartRouter.get('/:cid', async (req, res) => {
     try {
         const { cid } = req.params;
         const parsedId = parseInt(cid, 10);
-        const cart = await cartManager.getCartById(parsedId);
+        const cart = await cartManagerInstance.getCartById(parsedId);
         if (!cart) {
             return res.status(404).send("cart not found");
         }
@@ -45,7 +45,7 @@ cartRouter.post('/:cid/products/:pid', async (req, res) => {
         const quantity = req.body.quantity || 1; // busca cantidad del cuerpo o 1 por defecto
         //verifica la existencia del id y hace la conversion(lo extrae)
         const parsedCartId = parseInt(cid, 10);
-        const cart = await cartManager.getCartById(parsedCartId);
+        const cart = await cartManagerInstance.getCartById(parsedCartId);
         if (!cart) {
             return res.status(404).send("cart not found");
         }
@@ -54,7 +54,7 @@ cartRouter.post('/:cid/products/:pid', async (req, res) => {
             productId:parseInt(pid, 10),
             quantity
         };
-        await cartManager.addProductToCart( parsedCartId, newProduct);//pasa los argumentos y lo crea 
+        await cartManagerInstance.addProductToCart( parsedCartId, newProduct);//pasa los argumentos y lo crea 
         res.status(201).send({ status: "success", message: "product added to cart" });
     } catch (error) {
         console.log(error);

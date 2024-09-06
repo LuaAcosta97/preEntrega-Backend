@@ -1,15 +1,15 @@
 import express from 'express';
-import ProductsManager from "./managers/productsManager.js";
+import productsManager from "../managers/productsManager.js";
 
 const productsRouter = express.Router();
-const productsManager = new ProductsManager();
+const productsManagerInstance = new productsManager();
 
 productsRouter.use(express.json());
 productsRouter.use(express.urlencoded({ extended: true }));
 
 productsRouter.get('/', async (req, res) => {
     try {
-        const products = await productsManager.getProducts();
+        const products = await productsManagerInstance.getProducts();
         res.send({ products })
     } catch (error) {
         console.log(error);
@@ -22,7 +22,7 @@ productsRouter.get('/:pid', async (req, res) => {
     try {
         const { pid } = req.params;
         const parsedId = parseInt(pid, 1);
-        const product = await productsManager.getProductById(parsedId);
+        const product = await productsManagerInstance.getProductById(parsedId);
         if (!product) {
             return res.status(404).send("product not found");
         }
@@ -54,7 +54,7 @@ productsRouter.post('/', async (req, res) => {
             category: "SkinCare"
 
         };
-        await productsManager.addProduct(newProduct);
+        await productsManagerInstance.addProduct(newProduct);
 
         res.status(201).send({ status: "success", message: " created" });
         // res.sendStatus(201); //estatus facil - created
@@ -72,7 +72,7 @@ productsRouter.put('/:pid', async (req, res) => {
     // encontrar el indice del usuario que quiero actualizar
     try {
         const parsedId = parseInt(pid, 10);
-        const updatedProduct = await productsManager.updateProduct(parsedId, { stock });
+        const updatedProduct = await productsManagerInstance.updateProduct(parsedId, { stock });
         if (!updatedProduct) {
             return res.status(400).send({ status: "error", error: "product doesn't exist" })
         }
@@ -88,7 +88,7 @@ productsRouter.delete('/:uid', async (req, res) => {
     try {
         //verifica la existencia del objeto
         const parsedId = parseInt(pid, 10);
-        const deleted = await productsManager.deleteProduct(parsedId);
+        const deleted = await productsManagerInstance.deleteProduct(parsedId);
         if (!deleted) {
             return res.status(400).send({ status: "error", error: "product doesn't exist" })
         }
