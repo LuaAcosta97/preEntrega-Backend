@@ -8,12 +8,12 @@ const cartManagerInstance = new cartManager();
 cartRouter.use(express.json());
 cartRouter.use(express.urlencoded({ extended: true }));
 
-cartRouter.post('/', async (req, res) => {
+cartRouter.post('/cart', async (req, res) => {
     // declaramos un body vacio
     const { } = req.body;
     // creamos el carrito con el arreglo de productos vacio
     try {
-        await cartManagerInstance.createCart();
+        await cartManagerInstance.createCart(newCart);
         res.status(201).send({ status: "success", message: "cart created" });
         // res.sendStatus(201); //estatus facil - created
     } catch (error) {
@@ -22,7 +22,7 @@ cartRouter.post('/', async (req, res) => {
     }
 });
 // obtener carrito por Id
-cartRouter.get('/:cid', async (req, res) => {
+cartRouter.get('/cart/:cid', async (req, res) => {
     try {
         const { cid } = req.params;
         const parsedId = parseInt(cid, 10);
@@ -39,7 +39,7 @@ cartRouter.get('/:cid', async (req, res) => {
 
 });
 
-cartRouter.post('/:cid/products/:pid', async (req, res) => {
+cartRouter.post('/cart/:cid/products/:pid', async (req, res) => {
     try {
         const { cid, pid } = req.params; // extraemos los parametros de ruta por id 
         const quantity = req.body.quantity || 1; // busca cantidad del cuerpo o 1 por defecto

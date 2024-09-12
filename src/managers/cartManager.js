@@ -15,6 +15,7 @@ export default class cartManager {
     // se inicia archivo del carrito con un array vacio
     async init() {
         await fs.promises.writeFile(PATH, JSON.stringify([]))
+        console.log()
     }
 
     async createCart() {
@@ -28,6 +29,7 @@ export default class cartManager {
 
             carts.push(newCart);
             await fs.promises.writeFile(PATH, JSON.stringify(carts, null, '\t'));
+            return JSON.parse(newCart);
         } catch (error) {
             console.log(error);
         };

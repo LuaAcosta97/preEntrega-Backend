@@ -23,7 +23,7 @@ export default class productsManager {
 
     }
 
-    async getProductsById(productId) {
+    async getProductById(productId) {
         const data = await fs.promises.readFile(PATH, 'utf-8')
         const products = JSON.parse(data);
         const product = products.find(p => p.id === productId);
