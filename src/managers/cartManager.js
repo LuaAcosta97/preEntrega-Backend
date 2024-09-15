@@ -1,7 +1,9 @@
 import fs from 'fs';
+import productsManager from './ProductsManager.js';
 
 const PATH = './src/files/cart.json';
 
+const productManager = new productsManager();
 
 export default class cartManager {
     constructor() {
@@ -48,27 +50,38 @@ export default class cartManager {
     }
 
     // agregando un nuevo producto
-    async addProductToCart(cartId, newProduct) {
+    async addProductToCart(cid, newProduct) {
+
         try {
             const carts = await this.getCarts();
-            // encontramos el carrito por Id
-            let cart = carts.find(c => c.Id === cartId);
-            if (!cart) {
-                console.log('cart with ID ${cartId} not found')
-            }
+            const products = await productManager.getProducts();
 
-            // llamo a los productos
-            const products = await this.getProducts();
-            // le asigno al nuevo producto id y cantidad 
+            // encontramos el carrito por Id
+            let cart = carts.find(c => c.Id === cid);
+            if (!cart) {
+                console.log('cart with ID not found');
+                console.log(cart)
+            };
+            // le asigno al producto id y cantidad 
             const product = {
                 ...newProduct,
-                productId: products.length === 0 ? 1 : products[products.length - 1].id + 1,
+                productId: newProduct.productId || (products.length === 0 ? 1 : products[products.length - 1].id + 1),
                 quantity: newProduct.quantity || 1 //usamos cantidad proporcionada o 1 por defecto
             }
-            // se agrega el producto
-            products.push(product);
-            //guardamos lo actualizado
-            await fs.promises.writeFile(PATH, JSON.stringify(products, null, '\t'));
+
+            // Verifica si el producto ya está en el carrito
+            const existingProductIndex = cart.products.findIndex(p => p.productId === product.productId);
+            if (existingProductIndex > -1) {
+                // Actualiza la cantidad del producto si ya existe
+                cart.products[existingProductIndex].quantity += product.quantity;
+            } else {
+                // Agrega el nuevo producto al carrito
+                cart.products.push(product);
+            }
+            // Guarda los carritos actualizados
+            await fs.promises.writeFile(PATH_CARTS, JSON.stringify(carts, null, '\t'));
+            return { success: 'Product added to cart' };
+            
         } catch (error) {
             console.log('error adding product to cart', error);
         }

@@ -28,6 +28,7 @@ export default class productsManager {
         const products = JSON.parse(data);
         const product = products.find(p => p.id === productId);
         return product;
+
     }
     // agregando un nuevo producto
     async addProduct(newProduct) {
@@ -42,7 +43,7 @@ export default class productsManager {
             } else {
                 product.id = products[products.length - 1].id + 1;
             }
-            product.push(product);
+            products.push(product);
             await fs.promises.writeFile(PATH, JSON.stringify(products, null, '\t'));
         } catch (error) {
             console.log(error);
@@ -50,40 +51,39 @@ export default class productsManager {
     };
     async updateProduct(id, updatedData) {
         const products = this.getProducts();
-        let foundIndex = products.findIndex(
-            (p => p.id === Number(id))
-        );
-        if (foundIndex === -1) {
-            return res.status(400).send({ status: "error", error: "User doesn't exist" })
+        try {
+            const foundIndex = products.findIndex(p => p.id === Number(id));
+            if (foundIndex === -1) {
+                return { status: "error", error: "cannot find id" };
+            }
+            products[foundIndex] = { ...products[foundIndex], ...updatedData };
+            await fs.promises.readFile(PATH, 'utf-8');
+
+            fs.promises.writeFile(PATH, JSON.stringify(products, null, '\t'));
+            return products[foundIndex];
+
+        } catch (error) {
+            console.error(error);
+            return { error: "error to update product" };
         }
-        products[foundIndex] = { ...products[foundIndex], ...updatedData };
-        await fs.promises.readFile(PATH, 'utf-8');
-
-        fs.promises.writeFile(PATH, JSON.stringify(products, null, '\t'));
-        return products[foundIndex];
-
-    } catch(error) {
-        console.error(error);
-        return { error: "error to update product" };
-
     };
 
     async deleteProduct(id) {
         const products = this.getProducts();
-        let foundIndex = products.findIndex(p => p.id === Number(id));
-
-        if (!foundIndex) {
-            return {
-                error: true, message: "error, cannot find id"
+        try {
+            const foundIndex = products.findIndex(p => p.id === Number(id));
+            if (foundIndex === -1) {
+                return { status: "error", error: "cannot find product" };
             };
-        }
-        products.splice(foundIndex, 1);
-        await fs.promises.writeFile(PATH, JSON.stringify(products, null, '\t'));
-        return { success: true };
 
-    } catch(error) {
-        console.error(error);
-        return { error: "error to delete product" };
+            const newProducts = products.filter(p => p.id != id )
+            await fs.promises.writeFile(PATH, JSON.stringify(newProducts, null, '\t'));
+            return {status: "success", message: "product deleted" };
 
+        } catch (error) {
+            console.error(error);
+            return { error: "error to delete product" };
+
+        };
     };
 };
