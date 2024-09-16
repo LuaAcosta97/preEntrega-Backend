@@ -50,7 +50,7 @@ export default class productsManager {
         }
     };
     async updateProduct(id, updatedData) {
-        const products = this.getProducts();
+        const products = await this.getProducts();
         try {
             const foundIndex = products.findIndex(p => p.id === Number(id));
             if (foundIndex === -1) {
@@ -69,7 +69,7 @@ export default class productsManager {
     };
 
     async deleteProduct(id) {
-        const products = this.getProducts();
+        const products = await this.getProducts();
         try {
             const foundIndex = products.findIndex(p => p.id === Number(id));
             if (foundIndex === -1) {

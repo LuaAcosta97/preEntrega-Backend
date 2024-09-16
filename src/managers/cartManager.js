@@ -1,5 +1,5 @@
 import fs from 'fs';
-import productsManager from './ProductsManager.js';
+import productsManager from './productsManager.js';
 
 const PATH = './src/files/cart.json';
 
