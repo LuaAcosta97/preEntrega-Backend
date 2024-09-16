@@ -2,8 +2,9 @@ import fs from 'fs';
 import productsManager from './productsManager.js';
 
 const PATH = './src/files/cart.json';
+const PATHprod = './src/files/products.json';
 
-const productManager = new productsManager();
+const productManager = new productsManager(PATHprod);
 
 export default class cartManager {
     constructor() {
@@ -27,11 +28,12 @@ export default class cartManager {
             let carts = await this.getCarts()
             let newCart = {
                 id: carts.length === 0 ? 1 : carts[carts.length - 1].id + 1,
+                products: []
             };
 
             carts.push(newCart);
             await fs.promises.writeFile(PATH, JSON.stringify(carts, null, '\t'));
-            return JSON.parse(newCart);
+            return newCart;
         } catch (error) {
             console.log(error);
         };
@@ -57,11 +59,15 @@ export default class cartManager {
             const products = await productManager.getProducts();
 
             // encontramos el carrito por Id
-            let cart = carts.find(c => c.Id === cid);
+            let cart = carts.find(cart => cart.id === cid);
             if (!cart) {
                 console.log('cart with ID not found');
-                console.log(cart)
             };
+            //si no tiene el array de productos se lo agrego
+            if (!cart.products) {
+                cart.products = [];
+            }
+
             // le asigno al producto id y cantidad 
             const product = {
                 ...newProduct,
@@ -79,11 +85,12 @@ export default class cartManager {
                 cart.products.push(product);
             }
             // Guarda los carritos actualizados
-            await fs.promises.writeFile(PATH_CARTS, JSON.stringify(carts, null, '\t'));
+            await fs.promises.writeFile(PATH, JSON.stringify(carts, null, '\t'));
             return { success: 'Product added to cart' };
-            
+
         } catch (error) {
             console.log('error adding product to cart', error);
+            return { status: 'error', message: 'Error adding product to cart' };
         }
     };
 }
