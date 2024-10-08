@@ -38,7 +38,7 @@ productsRouter.get('/:pid', async (req, res) => {
 productsRouter.post('/', async (req, res) => {
     const { title, description, code, price, status, stock, category } = req.body;
     // valida si envia la peticion
-   
+
     try {
         const newProduct = {
             title,

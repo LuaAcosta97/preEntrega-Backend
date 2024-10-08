@@ -1,17 +1,18 @@
 const socket = io()
 const realTimeProducts = document.getElementById("realTimeProducts")
-socket.emit('products')
+
+socket.emit("products")
 socket.on("products", (data) => {
     realTimeProducts.innerHTML = ""
     data.forEach(item => {
         const element = document.createElement("div")
         element.innerHTML = `
-         <h3>${item.title}</h3>
-         <div>${item.price}</div>
-         <div>${item.stock}</div>
-         <div>${item.code}</div>
-         <button id="${item.id}" class="deleteItem">Eliminar</button>
-         `
+            <h3>${item.title}</h3>
+            <div>${item.price}</div>
+            <div>${item.stock}</div>
+            <div>${item.code}</div>
+            <button id="${item.id}" class="deleteItem">Eliminar</button>
+            `  
         realTimeProducts.append(element)
     });
 })

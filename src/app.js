@@ -14,7 +14,8 @@ const app = express();
 const PORT = process.env.PORT || 8080;
 
 const httpServer = app.listen(PORT, () => console.log(`listening on ${PORT}`));
-const io = new Server(httpServer)
+//creamos el servidor para sockets dentro de nuestro servidor principal
+const io = new Server(httpServer);
 
 app.use('/static',express.static(`${__dirname}../public`));
 app.use(express.json());

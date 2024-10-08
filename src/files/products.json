@@ -38,5 +38,27 @@
 		"stock": 5,
 		"category": "MakeUp",
 		"id": 4
+	},
+	{
+		"id": 5
+	},
+	{
+		"id": 6
+	},
+	{
+		"id": 7
+	},
+	{
+		"id": 8
+	},
+	{
+		"title": "ICONO crema corporal",
+		"description": "formula con aceite de coco y argan, boma de nutricion",
+		"code": "05.0",
+		"price": 10.3,
+		"status": "true",
+		"stock": 6,
+		"category": "skinCare",
+		"id": 9
 	}
 ]

@@ -1,0 +1,28 @@
+.container{
+background-color: rgb(255, 198, 182);
+}
+
+#realTimeProducts {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.product {
+    border: 1px solid #ccc;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    width: calc(25% - 20px); /* 4 columnas */
+}
+
+.product h3 {
+    margin: 0;
+}
+
+.deleteItem {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+}
