@@ -1,11 +1,24 @@
 <div class="container">
     <h1>Productos</h1>
+    {{#if products.lenght}}
     {{#each products}}
-        <div>
+        <div class="card">
             <h3>{{title}} </h3>
-            <span>{{price}} </span>
-            <span>{{stock}} </span>
+            <img src="{{img}}" alt="image-product">
+            <p>{{description}}</p>
+            <div class="card-info">
+                <div>{{price}}</div>
+                <div>{{stock}}</div>
+            </div>
+            <div>
+                <button>borrar</button>
+                <button>comprar</button>
+            </div>
         </div>
     {{/each}}
+    
+    {{else}}
+    <p>no hay productos disponibles</p>
+    {{/if}}
 </div>
 

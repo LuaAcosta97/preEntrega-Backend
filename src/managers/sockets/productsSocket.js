@@ -3,7 +3,7 @@ import fs from 'fs'
 const productsSocket = (socket) => {
     socket.on("products", async () => {
         try {
-            const data = await fs.promises.readFile('../file/products.json', 'utf-8');
+            const data = await fs.promises.readFile('./src/files/products.json', 'utf-8');
             const products = JSON.parse(data);
             socket.emit("products", products);
             console.log("Productos enviados:", products); // Muestra los productos en consola

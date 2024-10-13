@@ -11,8 +11,7 @@
 	},
 	{
 		"title": "ICONO Gel de Limpieza Kepp Matt 150ML",
-		"description": "Exfolia y elimina impurezas. Limpia y desinfecta la piel en un solo paso. Formulado para controlar la flora bacteriana y eliminar el sebo de la piel. Ideal para el tratamiento de piel seborreica o con acné",
-		"code": "01.0",
+		"description": "Exfolia y elimina impurezas. Limpia y desinfecta la piel en un solo paso.",
 		"price": 7.2,
 		"status": "true",
 		"stock": 7,
@@ -40,20 +39,8 @@
 		"id": 4
 	},
 	{
-		"id": 5
-	},
-	{
-		"id": 6
-	},
-	{
-		"id": 7
-	},
-	{
-		"id": 8
-	},
-	{
 		"title": "ICONO crema corporal",
-		"description": "formula con aceite de coco y argan, boma de nutricion",
+		"description": "formula con aceite de coco y argan, bomba de nutrición",
 		"code": "05.0",
 		"price": 10.3,
 		"status": "true",
