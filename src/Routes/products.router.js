@@ -44,9 +44,11 @@ productsRouter.post('/', async (req, res) => {
             description,
             code,
             price,
-            available,
+            category,
             stock,
-            category
+            status
+            
+            
         };
         if (!newProduct){
             return res.status(400).send({ status: "error", error: "incomplete info" })

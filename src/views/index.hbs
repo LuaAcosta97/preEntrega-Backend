@@ -1,14 +1,21 @@
-<div class="container">
-    <h1>Productos</h1>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>productos</title>
+</head>
+<body>
+    <div class="container">
+    <h1>Lista de Productos</h1>
     {{#if products.lenght}}
     {{#each products}}
         <div class="card">
             <h3>{{title}} </h3>
-            <img src="{{img}}" alt="image-product">
             <p>{{description}}</p>
             <div class="card-info">
-                <div>{{price}}</div>
-                <div>{{stock}}</div>
+                <div>USD{{price}}</div>
+                <div>Stock:{{stock}}</div>
+                <div>Categoria:{{categoria}}</div>
             </div>
             <div>
                 <button>borrar</button>
@@ -20,5 +27,8 @@
     {{else}}
     <p>no hay productos disponibles</p>
     {{/if}}
-</div>
+    </div>
+
+</body>
+</html>
 

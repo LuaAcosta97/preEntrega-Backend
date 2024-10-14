@@ -9,6 +9,10 @@ const ProductSchema = new mongoose.Schema({
     description:{
         String
     },
+    code:{
+        type:Number,
+        required:true
+    },
     price:{
         type:Number,
         required:true
@@ -20,10 +24,11 @@ const ProductSchema = new mongoose.Schema({
         type:Number,
         required:true
     },
-    available:{
+    status:{
         type:Boolean,
         default:true
     }
 })
 
-export default mongoose.model('product', ProductSchema);
+const ProductModel = mongoose.model('product', ProductSchema);
+export default ProductModel;

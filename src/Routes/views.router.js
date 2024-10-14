@@ -3,18 +3,28 @@ import fs from 'fs';
 
 const PATH = "./src/files/products.json"
 
-const router = Router();
+const viewsRouter = Router();
 
-router.get ('/products', async (req,res)=>{
+viewsRouter.get ('/products', async (req,res)=>{
     const data = await fs.promises.readFile(PATH, 'utf-8')
     const products = JSON.parse(data)
     res.status(200).render("index", {products})
 })
 
-router.get ('/create-products', async (req,res)=>{
+viewsRouter.get ('/realTimeProducts', async (req,res)=>{
     const data = await fs.promises.readFile(PATH, 'utf-8')
     const products = JSON.parse(data)
     res.status(200).render("realTimeProducts", {products})
 })
+viewsRouter.get('/cart', async (req, res) => {
+    try {
+        const data = await fs.promises.readFile("./src/files/cart.json", 'utf-8')
+        const cart = JSON.parse(data)
+        res.render("cart", { cart });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Error loading cart");
+    }
+});
 
-export default router; 
+export default viewsRouter; 

@@ -1,9 +1,7 @@
+
 const ProductModel = '../models/Product.model.js';
 
 export default class productsManager {
-    constructor() {
-        console.log("connected to productsManager with MongoDB");
-    }
     // llamamos/obtenenmos los productos
     async getProducts() {
         try {

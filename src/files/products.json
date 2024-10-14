@@ -1,51 +1,51 @@
 [
 	{
-		"title": "ICONO labial mate rojo intenso",
-		"description": "formula con colores mate en su maxima duración",
-		"code": "04.0",
-		"price": 5.3,
-		"status": "true",
-		"stock": 6,
-		"category": "MakeUp",
-		"id": 1
-	},
-	{
-		"title": "ICONO Gel de Limpieza Kepp Matt 150ML",
-		"description": "Exfolia y elimina impurezas. Limpia y desinfecta la piel en un solo paso.",
-		"price": 7.2,
-		"status": "true",
-		"stock": 7,
-		"category": "SkinCare",
-		"id": 2
-	},
-	{
-		"title": "ICONO Máscara Timeless Lashes 12GR",
-		"description": "Máscara a prueba de agua con fibras y efecto voluminizador.",
-		"code": "02.0",
-		"price": 6.8,
-		"status": "true",
-		"stock": 5,
-		"category": "MakeUp",
-		"id": 3
-	},
-	{
-		"title": "ICONO Máscara Timeless Lashes 12GR",
-		"description": "Máscara a prueba de agua con fibras y efecto voluminizador.",
-		"code": "02.0",
-		"price": 6.8,
-		"status": "true",
-		"stock": 5,
-		"category": "MakeUp",
-		"id": 4
-	},
-	{
-		"title": "ICONO crema corporal",
-		"description": "formula con aceite de coco y argan, bomba de nutrición",
-		"code": "05.0",
-		"price": 10.3,
-		"status": "true",
-		"stock": 6,
-		"category": "skinCare",
-		"id": 9
-	}
+	"title": "ICONO labial mate rojo intenso",
+	"description": "formula con colores mate en su maxima duración",
+	"code": "04.0",
+	"price": 5.3,
+	"status": "true",
+	"stock": 6,
+	"category": "MakeUp",
+	"id": 1
+},
+{
+	"title": "ICONO Gel de Limpieza Kepp Matt 150ML",
+	"description": "Exfolia y elimina impurezas. Limpia y desinfecta la piel en un solo paso.",
+	"price": 7.2,
+	"status": "true",
+	"stock": 7,
+	"category": "SkinCare",
+	"id": 2
+},
+{
+	"title": "ICONO Máscara Timeless Lashes 12GR",
+	"description": "Máscara a prueba de agua con fibras y efecto voluminizador.",
+	"code": "02.0",
+	"price": 6.8,
+	"status": "true",
+	"stock": 5,
+	"category": "MakeUp",
+	"id": 3
+},
+{
+	"title": "ICONO Máscara Timeless Lashes brown 12GR",
+	"description": "Máscara a prueba de agua con fibras y efecto voluminizador.",
+	"code": "02.0",
+	"price": 6.8,
+	"status": "true",
+	"stock": 5,
+	"category": "MakeUp",
+	"id": 4
+},
+{
+	"title": "ICONO crema corporal",
+	"description": "formula con aceite de coco y argan, bomba de nutrición",
+	"code": "05.0",
+	"price": 10.3,
+	"status": "true",
+	"stock": 6,
+	"category": "skinCare",
+	"id": 9
+}
 ]
